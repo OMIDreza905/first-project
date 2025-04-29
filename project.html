@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Mercedes-Benz_Logo_2010.svg/330px-Mercedes-Benz_Logo_2010.svg.png" alt="Avatar">
+<style>
+      img {
+  border-radius: 50%;
+  width: 150px;
+}
+      </style>
+<style>
+/* The sidebar menu */
+.sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s; /* If you want a transition effect */
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+</style>
+<style>
+      /* Pagination links */
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+/* Style the active/current link */
+.pagination a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+/* Add a grey background color on mouse-over */
+.pagination a:hover:not(.active) {background-color: #ddd;}
+      </style>
+      <style>
+       .container {
+  position: relative;
+  width: 50%;
+}
+
+.image {
+  display: block;
+  width: 100px;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background-color: #008CBA;
+  overflow: hidden;
+  width: 100px;
+  height:0;
+  transition: .5s ease;
+}
+
+.container:hover .overlay {
+  bottom: 0;
+  height: 100%;
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+  </style>
+  <style>
+  .container {
+   position: relative;
+   font-family: Arial;
+   width: auto;
+                
+ }
+                  
+  .text-block {
+     position: absolute;
+     bottom: 10px;
+     right: 20px;
+     background-color:rgb(52, 51, 51);
+    padding-left: 20px;
+    padding-right: 20px;
+    }
+    </style>
+    <style>
+     body, html {
+    height: 100%;
+}
+
+/* The hero image */
+.hero-image {
+  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("data:image/jpeg;base64,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");
+  height: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+ </style>
+<style>
+   /*factory maker*/
+.column {
+  float: left;
+  width: 70px;
+
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.container {
+  padding: 0 16px;
+}
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+      </style>
+      
+
+
+
+
+  <style>
+      .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width:220px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+      </style>
+      <style>
+            /* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+            </style>
+            <style>
+                  .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+                  </style>
+                  <style>
+                        a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.previous {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.next {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.round {
+  border-radius: 50%;
+}
+                        </style>
+                        <style>
+                          /* Make sure that padding behaves as expected */
+* {box-sizing:border-box}
+
+/* Container for skill bars */
+.container {
+  width: 10px /* Full width */
+  background-color: #ddd; /* Grey background */
+}
+
+.skills {
+  text-align: right; /* Right-align text */
+  padding-top: 10px; /* Add top padding */
+  padding-bottom: 10px; /* Add bottom padding */
+  color: white; /* White text color */
+}
+
+.html {width: 90%; background-color: #04AA6D;} /* Green */
+.css {width: 80%; background-color: #2196F3;} /* Blue */
+.js {width: 65%; background-color: #f44336;} /* Red */
+.php {width: 60%; background-color: #808080;} /* Dark Grey */
+
+                          </style>
+                          <style>
+                            /* Style buttons */
+.buttonload {
+  background-color: #04AA6D; /* Green background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 12px 16px; /* Some padding */
+  font-size: 16px /* Set a font size */
+}
+                            </style>
+                          <style>
+                         /* Style buttons */
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+                            </style>
+                            <style>
+                              #more {display: none;}
+                              </style>
+                       
+     
+</head>
+<body>
+
+
+      <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="file:///C:/omid.html/profile.html">profile</a>
+            <a href="file:///C:/Users/HP/Pictures/Saved%20Pictures/Untitled-1.html">shoping cart</a>
+            <a href="#">about</a>
+            <a href="#">call us</a>
+          </div>
+          
+
+          <div id="main">
+            <button class="openbtn" onclick="openNav()">&#9776;menu</button>
+          </div>
+         
+         
+ <script>
+  /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft = "0";
+}</script>
+<script>
+  // Get the button:
+let mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+  </script>
+<script>
+  function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Read more";
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Read less";
+    moreText.style.display = "inline";
+  }
+}
+  </script>
+
+
+
+<div class="hero-image">
+      <div class="hero-text">
+        <h1>the fastest benz</h1>
+        <p>with a powerful engin</p>
+       <a href="https://www.stratstone.com/blog/top-5-what-are-the-fastest-mercedes-benz-models/?srsltid=AfmBOoqc0ZGeeqlGcxAWOSD2LJVi1H-w0_JDcaI51rfsRfSIdNbd61P6"> <button>see more</button>
+      </div>
+    </div>
+
+
+
+
+
+   
+
+
+
+<div class="container">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDOaS7rWeAuBZ_BwsYAsAMDEx3eH5iO54Pbg&s" alt="Avatar" class="image">
+      <div class="overlay">
+        <div class="text">sell your car</div>
+      </div>
+    </div>
+  
+<p>select your need</p>
+    <label class="container">electric-car
+      <input type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+    
+    <label class="container">suv car
+      <input type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+    
+    <label class="container">truck
+      <input type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+    
+    <label class="container">sedan car  
+      <input type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+
+<pre><label class="switch">
+<input type="checkbox">
+ <span class="slider round"></span></label>  turn to find
+</pre>
+
+
+
+    <div class="card">
+      <img src="https://static.ed.edmunds-media.com/unversioned/homepage/shop-by-type/EV-blue.svg" alt="Denim Jeans" style="width:100%">
+      <h1>Best Electric cars</h1>
+      <p class="price">up to $50000</p>
+<a href="https://www.edmunds.com/electric-car/"><button>show ads</button></a>
+    </div>
+
+    <div class="card">
+      <img src="https://static.ed.edmunds-media.com/unversioned/homepage/shop-by-type/SUV-blue.svg" alt="Denim Jeans" style="width:100%">
+      <h1>Best SUVs of 2024 and 2025</h1>
+      <p class="price">from $19.99</p>
+<a href="https://www.edmunds.com/electric-car/"><button>show ads</button></a>
+    </div>
+   
+    <div class="card">
+      <img src="https://static.ed.edmunds-media.com/unversioned/homepage/shop-by-type/Truck-blue.svg" alt="Denim Jeans" style="width:100%">
+      <h1>Best Trucks of 2024 and 2025</h1>
+      <p class="price">from$100000</p>
+<a href="https://www.edmunds.com/electric-car/"><button>show ads</button></a>
+    </div>
+
+    <div class="card">
+      <img src="https://static.ed.edmunds-media.com/unversioned/homepage/shop-by-type/Sedan-blue.svg" alt="Denim Jeans" style="width:100%">
+      <h1>Best Sedans of 2024 and 2025</h1>
+      <p class="price">$19543</p>
+<a href="https://www.edmunds.com/electric-car/"><button>show ads</button></a>
+    </div>
+
+    <div class="card">
+      <img src="https://static.ed.edmunds-media.com/unversioned/homepage/shop-by-type/Hybrid-blue.svg" alt="Denim Jeans" style="width:100%">
+      <h1> Hybrid Cars</h1>
+      <p class="price">$19.499</p>
+ <a href="https://www.edmunds.com/electric-car/"><button>show ads</button></a>
+    </div>
+
+
+
+   
+   
+      <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<p>history of mercedes benz comany and make science<span id="dots">...</span><span id="more">Mercedes-Benz (German pronunciation: [mɛʁˌtseːdəs ˈbɛnts, -dɛs -] ⓘ),[6][7] commonly referred to simply as Mercedes and occasionally as Benz, is a German luxury and commercial vehicle brand that was founded in 1926. Mercedes-Benz AG (a subsidiary of the Mercedes-Benz Group, established in 2019) is based in Stuttgart, Baden-Württemberg, Germany.[1] Mercedes-Benz AG manufactures luxury vehicles and light commercial vehicles, all branded under the Mercedes-Benz name. From November 2019 onwards, the production of Mercedes-Benz-branded heavy commercial vehicles (trucks and buses) has been managed by Daimler Truck, which separated from the Mercedes-Benz Group to form an independent entity at the end of 2021.
+
+  In 2018, Mercedes-Benz was the worlds largest premium vehicle brand, with a sales volume of 2.31 million passenger cars.[8]
+  
+  The roots of the brand trace back to the 1901 Mercedes by Daimler-Motoren-Gesellschaft and the 1886 Benz Patent-Motorwagen by Carl Benz, which is widely recognized as the first automobile powered by an internal combustion engine. The brand’s slogan is "The Best or Nothing".[9]</span></p>
+
+<button onclick="myFunction()" id="myBtn">Read more</button>
+<!-- Auto width -->
+<button class="btn"><i class="fa fa-download"></i> Download</button>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons to buttons (note that the fa-spin class rotates the icon) -->
+<button class="buttonload">
+  <i class="fa fa-spinner fa-spin"></i>Loading
+</button>
+</body>
+</html>
